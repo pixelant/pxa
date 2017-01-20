@@ -24,7 +24,7 @@ check.isInstalled();
 //====================================================
 function mobileApp() {
     return helpers.promiseChainStarter(cache)
-    .then(prompt.ask)
+    .then(prompt.mobileAppQuestions)
     .then(git.clone)
 
     .then(parse.change)
@@ -34,6 +34,7 @@ function mobileApp() {
     .then(dep.ionicBuild)
 
     .then((val) => { console.log(val); })
+    .then(() => { console.log('yes'); })
     .catch((err) => { helpers.error('', err);});
 }
 
