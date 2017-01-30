@@ -13,6 +13,7 @@ const check = require('./lib/check');
 const parse = require('./lib/parse');
 const dep = require('./lib/dep');
 const argv = require('minimist')(process.argv.slice(2));
+const shellCommands = require('./lib/shellCommands');
 
 var cache = {};
 
@@ -24,17 +25,22 @@ check.isInstalled();
 //====================================================
 function mobileApp() {
     return helpers.promiseChainStarter(cache)
+    .then(prompt.appName)
+    .then(prompt.dirName)
     .then(prompt.mobileAppQuestions)
+    .then(shellCommands.mkdir)
     .then(git.clone)
-
-    .then(parse.change)
+    .then(parse.mobileAppFiles)
+    .then(prompt.mobImages)
+    .then(prompt.installDep)
     .then(dep.npmInstall)
     .then(dep.addIonicResources)
     .then(dep.addIonicPlatforms)
     .then(dep.ionicBuild)
+    .then(git.commit)
 
     .then((val) => { console.log(val); })
-    .then(() => { console.log('yes'); })
+    .then(() => { console.log(helpers.pwd()); })
     .catch((err) => { helpers.error('', err);});
 }
 
