@@ -31,16 +31,16 @@ function mobileApp() {
     .then(shellCommands.mkdir)
     .then(git.clone)
     .then(parse.mobileAppFiles)
+    .then(git.commit)
     .then(prompt.mobImages)
     .then(prompt.installDep)
     .then(dep.npmInstall)
     .then(dep.addIonicResources)
     .then(dep.addIonicPlatforms)
     .then(dep.ionicBuild)
-    .then(git.commit)
 
-    .then((val) => { console.log(val); })
-    .then(() => { console.log(helpers.pwd()); })
+    // .then((val) => { console.log(val); })
+    // .then(() => { console.log(helpers.pwd()); })
     .catch((err) => { helpers.error('', err);});
 }
 
@@ -88,3 +88,6 @@ if (_.size(argv) !== 1 || argv._.length) {
 } else {
     run();
 }
+
+// TODO: add checker if generator uses the last version of project templates
+// TODO: show error message if something is wrong with dependencies installing
