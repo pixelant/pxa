@@ -1,6 +1,6 @@
 ## Pixelant Template Generator 0.0.1 Alpha
 
-####Not published to **npm** yet.
+Not published to **npm** yet.
 
 ### [CHANGELOG](https://github.com/pixelant/pxa/blob/master/CHANGELOG.md)
 ### [CONTRIBUTING](https://github.com/t3kit/t3kit/blob/master/CONTRIBUTING.md)
@@ -18,7 +18,7 @@ _Note: You might need to use `sudo` before `npm` command to install packages glo
 
 
 
-If you want to check it, you need to clone it to your local and install:
+If you want to check **pxa generator** now, you need to clone it to your local and install:
 
 ```
 git clone git@github.com:pixelant/pxa.git
