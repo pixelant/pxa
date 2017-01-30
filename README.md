@@ -1,4 +1,4 @@
-## Pixelant Template Generator 0.0.1 Alpha
+## Pixelant Template Generator 0.0.2 Alpha
 
 Not published to **npm** yet.
 
