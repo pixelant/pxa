@@ -21,9 +21,9 @@ var cache = {};
 //====================================================
 check.isInstalled();
 
-// run mobileApp
+// Clone MobileApp Template
 //====================================================
-function mobileApp() {
+function cloneMobileApp() {
     return helpers.promiseChainStarter(cache)
     .then(prompt.appName)
     .then(prompt.dirName)
@@ -37,11 +37,44 @@ function mobileApp() {
     .then(dep.addIonicResources)
     .then(dep.addIonicPlatforms)
     .then(dep.ionicBuild)
-    .then(git.commit)
+    .then(git.initialCommit)
 
-    // .then((val) => { console.log(val); })
+    .then((val) => { console.log(val); })
     // .then(() => { console.log(helpers.pwd()); })
     .catch((err) => { helpers.error('', err);});
+}
+
+// Register Ionic cloud and Google FCM Sender ID
+//====================================================
+function ionicCloudSenderID() {
+    return helpers.promiseChainStarter(cache)
+    .then(check.isIonic)
+    .then(() => helpers.showMessage(cache, `Android FCM Project & Server Key \nhttp://docs.ionic.io/services/profiles/#android-fcm-project--server-key`))
+    .then(prompt.senderId)
+    .then(parse.appSenderId)
+    .then(dep.ionicPush)
+    .then(() => helpers.showMessage(cache, `To continue, please login to your Ionic account`))
+    .then(prompt.login)
+    .then(shellCommands.ionicLogin)
+    .then(shellCommands.ionicInit)
+    .then(parse.appId)
+    .then(git.add)
+    .then(() => git.commit(cache, 'setup Ionic Cloud and Google FCM Sender ID'))
+
+    .then((val) => { console.log(val); })
+    // .then(() => { console.log(helpers.pwd()); })
+    .catch((err) => { helpers.error('', err);});
+}
+
+function mobileAppSteps() {
+    prompt.mobileAppStep(cache)
+    .then(() => {
+        if (cache.mobileAppStep === 'cloneMobileAppTemplate') {
+            cloneMobileApp();
+        } else {
+            ionicCloudSenderID();
+        }
+    }).catch((err) => { helpers.error('', err);});
 }
 
 // main start point
@@ -50,7 +83,7 @@ function run() {
     prompt.projectType(cache)
     .then(() => {
         if (cache.projectType === 'mobileApp') {
-            mobileApp();
+            mobileAppSteps();
         } else if (cache.projectType === 'theme') {
             console.log(chalk.red('Not ready yet'));
             shell.exit(1);
@@ -74,7 +107,7 @@ if (_.size(argv) !== 1 || argv._.length) {
     // pxa  -m, --mobile-app
     } else if (argv.m || argv['mobile-app']) {
         cache.projectType = 'mobile';
-        mobileApp();
+        mobileAppSteps();
 
     // pxa  -t, --theme
     } else if (argv.t || argv.theme) {
@@ -91,3 +124,5 @@ if (_.size(argv) !== 1 || argv._.length) {
 
 // TODO: add checker if generator uses the last version of project templates
 // TODO: show error message if something is wrong with dependencies installing
+// TODO: helpers.error???
+// TODO: add CI tests!!!
