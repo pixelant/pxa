@@ -100,7 +100,7 @@ if (_.size(argv) !== 1 || argv._.length) {
     if (argv.h || argv.help) {
         help.allHelp();
 
-        // pxa  -v, --version
+    // pxa  -v, --version
     } else if (argv.v || argv.version) {
         help.showVersion();
 
