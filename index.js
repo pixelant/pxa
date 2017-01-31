@@ -39,7 +39,7 @@ function cloneMobileApp() {
     .then(dep.ionicBuild)
     .then(git.initialCommit)
 
-    .then((val) => { console.log(val); })
+    // .then((val) => { console.log(val); })
     // .then(() => { console.log(helpers.pwd()); })
     .catch((err) => { helpers.error('', err);});
 }
@@ -49,19 +49,19 @@ function cloneMobileApp() {
 function ionicCloudSenderID() {
     return helpers.promiseChainStarter(cache)
     .then(check.isIonic)
-    .then(() => helpers.showMessage(cache, `Android FCM Project & Server Key \nhttp://docs.ionic.io/services/profiles/#android-fcm-project--server-key`))
-    .then(prompt.senderId)
-    .then(parse.appSenderId)
-    .then(dep.ionicPush)
-    .then(() => helpers.showMessage(cache, `To continue, please login to your Ionic account`))
+    .then(() => helpers.showMessage(cache, `To continue, please login to Pixelant Ionic account`))
     .then(prompt.login)
     .then(shellCommands.ionicLogin)
     .then(shellCommands.ionicInit)
     .then(parse.appId)
+    .then(() => helpers.showMessage(cache, `Android FCM Project & Server Key \nhttp://docs.ionic.io/services/profiles/#android-fcm-project--server-key`))
+    .then(prompt.senderId)
+    .then(parse.appSenderId)
+    .then(dep.ionicPush)
     .then(git.add)
     .then(() => git.commit(cache, 'setup Ionic Cloud and Google FCM Sender ID'))
 
-    .then((val) => { console.log(val); })
+    // .then((val) => { console.log(val); })
     // .then(() => { console.log(helpers.pwd()); })
     .catch((err) => { helpers.error('', err);});
 }
