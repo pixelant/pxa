@@ -7,6 +7,7 @@ const shell = require('shelljs');
 const prompt = require('./lib/prompt');
 const chalk = require('chalk');
 const helpers = require('./lib/helpers');
+const variables = require('./lib/variables');
 const git = require('./lib/git');
 const help = require('./lib/help');
 const check = require('./lib/check');
@@ -29,7 +30,9 @@ function cloneMobileApp() {
     .then(prompt.dirName)
     .then(prompt.mobileAppQuestions)
     .then(shellCommands.mkdir)
-    .then(git.clone)
+    .then(() => git.clone(cache, cache.dirName))
+    .then(() => helpers.setWorkDir(cache, cache.dirName))
+    .then(git.reinit)
     .then(parse.mobileAppFiles)
     .then(prompt.mobImages)
     .then(prompt.installDep)
@@ -37,7 +40,8 @@ function cloneMobileApp() {
     .then(dep.addIonicResources)
     .then(dep.addIonicPlatforms)
     .then(dep.ionicBuild)
-    .then(git.initialCommit)
+    .then(git.add)
+    .then(() => git.commit(cache, `initial commit, based on mobileAppTemplate v${variables.mobileAppTemplate.v}`))
 
     // .then((val) => { console.log(val); })
     // .then(() => { console.log(helpers.pwd()); })
