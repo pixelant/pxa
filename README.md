@@ -52,10 +52,10 @@ Steps:
  ```
 
 2. Setup Ionic Cloud and Google FCM Sender ID
-```
-pxa => "Mobile App" => "Setup Ionic Cloud and Google FCM Sender ID"
-or
-pxa -m => "Setup Ionic Cloud and Google FCM Sender ID"
-```
+ ```
+ pxa => "Mobile App" => "Setup Ionic Cloud and Google FCM Sender ID"
+ or
+ pxa -m => "Setup Ionic Cloud and Google FCM Sender ID"
+ ```
 
 3. [Install Security Profiles](http://docs.ionic.io/services/profiles/) (Manually)
