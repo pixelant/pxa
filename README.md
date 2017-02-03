@@ -19,21 +19,22 @@ Use the ` pxa -h ` or ` pxa --help ` command for more info about utility.
 ### Specific required dependencies for every type of template starters:
 
 **Mobile App**
- - [Cordova](https://cordova.apache.org) >= 6.3.1 `[sudo*] npm install -g cordova`
- - [Ionic](http://ionic.io) >= 2.1.4 `[sudo*] npm install -g ionic`
+ - [Cordova](https://cordova.apache.org) >= 6.3.1 `[sudo] npm install -g cordova`
+ - [Ionic](http://ionic.io) >= 2.1.4 `[sudo] npm install -g ionic`
 
 
-**\***_Note: You might need to use `sudo` before `npm` command to install packages_ **globally**
-***
+_Note: You might need to use `sudo` before `npm` command to install packages_ **globally**
+
+---
 
 
 ## Installing:
 
 ```
-[sudo*] npm install -g pxa
+[sudo] npm install -g pxa
 ```
 
-*****_Note: You might need to use `sudo` before `npm` command to install packages_ **globally**
+_Note: You might need to use `sudo` before `npm` command to install package_ **globally**
 
 
 ## Starting:
