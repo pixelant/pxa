@@ -1,6 +1,6 @@
 {
   "name": "pxa",
-  "version": "0.0.2",
+  "version": "0.1.0",
   "description": "Pixelant command line utility",
   "main": "index.js",
   "scripts": {
