@@ -1,13 +1,13 @@
 {
   "name": "pxa",
   "version": "0.0.2",
-  "description": "Pixelant template generator",
+  "description": "Pixelant command line utility",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Pixelant",
-  "repository": "",
+  "repository": "pixelant/pxa",
   "bin": {
     "pxa": "./index.js"
   },
