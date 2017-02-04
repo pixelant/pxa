@@ -59,22 +59,22 @@ pxa
 
 ### Mobile App:
 
-Install mobile application based on [**Ionic Framework**](http://ionic.io), [**inAppBrowser plugin**](https://cordova.apache.org/docs/en/latest/reference/cordova-plugin-inappbrowser) and [**mobileApp_template**](https://github.com/pixelant/mobileApp_template) with push-notifications. 
+Install mobile application based on [**Ionic Framework**](http://ionic.io), [**inAppBrowser plugin**](https://cordova.apache.org/docs/en/latest/reference/cordova-plugin-inappbrowser) and [**mobileApp_template**](https://github.com/pixelant/mobileApp_template) with push-notifications.
 
 Steps:
 
 1. Clone Mobile app template and install dependencies
  ```
- pxa => "Mobile App" => "Setup MobileApp Template"
- or
- pxa -m => "Setup MobileApp Template"
+pxa => "Mobile App" => "Setup MobileApp Template"
+or
+pxa -m => "Setup MobileApp Template"
  ```
 
 2. Setup Ionic Cloud and Google FCM Sender ID
  ```
- pxa => "Mobile App" => "Setup Ionic Cloud and Google FCM Sender ID"
- or
- pxa -m => "Setup Ionic Cloud and Google FCM Sender ID"
+pxa => "Mobile App" => "Setup Ionic Cloud and Google FCM Sender ID"
+or
+pxa -m => "Setup Ionic Cloud and Google FCM Sender ID"
  ```
 
 3. [Install Security Profiles](http://docs.ionic.io/services/profiles/) (Manually)
