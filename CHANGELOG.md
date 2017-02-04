@@ -1,4 +1,11 @@
 
+#### v0.2.0 `February 4, 2017`
+- **[FEATURE]** update mobileApp_template to v0.1.0 ([a1eff86](https://github.com/pixelant/pxa/commit/a1eff86))
+- **[TASK]** add a new string to change (mobileAppTemplateVersion) ([bb12b9f](https://github.com/pixelant/pxa/commit/bb12b9f))
+- **[FEATURE]** add more commits to clarify git history ([11e2c35](https://github.com/pixelant/pxa/commit/11e2c35))
+
+***
+
 #### v0.1.0 `February 3, 2017`
 - **[TASK]** start from capital letter note for appName prompt ([18387eb](https://github.com/pixelant/pxa/commit/18387eb))
 - **[TASK]** add description and repository info to package.json ([33d03c6](https://github.com/pixelant/pxa/commit/33d03c6))
