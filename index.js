@@ -40,16 +40,21 @@ function cloneMobileApp() {
     .then(() => git.commit(cache, `identify the new application (app name, main color, app link)`))
     .then(prompt.mobImages)
     .then(prompt.installDep)
-    .then(dep.npmInstall)
-    .then(dep.addIonicResources)
-    .then(dep.addIonicPlatforms)
-    .then(dep.ionicBuild)
+    .then(() => cache.installDep ? dep.npmInstall() : cache)
+    .then(() => cache.installDep ? dep.addIonicResources() : cache)
+    .then(() => cache.installDep ? dep.addIonicPlatforms() : cache)
+    .then(() => cache.installDep ? dep.ionicBuild() : cache)
+    // .then(dep.npmInstall)
+    // .then(dep.addIonicResources)
+    // .then(dep.addIonicPlatforms)
+    // .then(dep.ionicBuild)
     .then(() => cache.installDep ? git.add() : cache)
     .then(() => cache.installDep ? git.commit(cache, 'add Ionic image resources') : cache)
 
     // .then((val) => { console.log(val); })
     // .then(() => { console.log(helpers.pwd()); })
-    .catch((err) => { helpers.error('', err);});
+    // .catch((err) => { helpers.error('', err);});
+    .catch(helpers.error);
 }
 
 // Register Ionic cloud and Google FCM Sender ID
@@ -65,13 +70,15 @@ function ionicCloudSenderID() {
     .then(() => helpers.showMessage(cache, `Android FCM Project & Server Key \nhttp://docs.ionic.io/services/profiles/#android-fcm-project--server-key`))
     .then(prompt.senderId)
     .then(parse.appSenderId)
-    .then(dep.ionicPush)
+    .then(dep.removePushPlugin)
+    .then(dep.installSenderId)
+    .then(dep.ionicBuild)
     .then(git.add)
     .then(() => git.commit(cache, 'setup Ionic Cloud and Google FCM Sender ID'))
 
     // .then((val) => { console.log(val); })
     // .then(() => { console.log(helpers.pwd()); })
-    .catch((err) => { helpers.error('', err);});
+    .catch(helpers.error);
 }
 
 function mobileAppSteps() {
@@ -82,7 +89,9 @@ function mobileAppSteps() {
         } else {
             ionicCloudSenderID();
         }
-    }).catch((err) => { helpers.error('', err);});
+    })
+    .catch(helpers.error);
+    // .catch((err) => { helpers.error('', err);});
 }
 
 // main start point
@@ -98,7 +107,9 @@ function run() {
         } else if (cache.projectType === 'help') {
             help.allHelp();
         }
-    }).catch((err) => { helpers.error('run', err);});
+    })
+    .catch(helpers.error);
+    // .catch((err) => { helpers.error('run', err);});
 }
 
 // parse arguments
