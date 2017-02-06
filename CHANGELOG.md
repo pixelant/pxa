@@ -1,4 +1,12 @@
 
+#### v0.3.0 `February 6, 2017`
+- **[TASK]** upgrade error handling, simplify install dep. script, change senderId installing process ([d48ded1](https://github.com/pixelant/pxa/commit/d48ded1))
+- **[FEATURE]** update mobileApp_template to v0.2.0 ([317582f](https://github.com/pixelant/pxa/commit/317582f))
+- **[FIX]** change senderID string to replace ([12526fa](https://github.com/pixelant/pxa/commit/12526fa))
+- **[FIX]** add possibility to trim() prompt answers ([81b6db4](https://github.com/pixelant/pxa/commit/81b6db4))
+
+***
+
 #### v0.2.0 `February 4, 2017`
 - **[FEATURE]** update mobileApp_template to v0.1.0 ([a1eff86](https://github.com/pixelant/pxa/commit/a1eff86))
 - **[TASK]** add a new string to change (mobileAppTemplateVersion) ([bb12b9f](https://github.com/pixelant/pxa/commit/bb12b9f))
