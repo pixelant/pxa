@@ -1,4 +1,11 @@
 
+#### v0.4.0 `February 7, 2017`
+- **[TASK]** use child_process.exec instead of shelljs plugin, simplify modules structure ([552759b](https://github.com/pixelant/pxa/commit/552759b))
+- **[FIX]** node.child_process.exec maxBuffer issue ([cae2a33](https://github.com/pixelant/pxa/commit/cae2a33))
+- **[FIX]** fix prompt message Project type -> Mobile app step ([e8acf62](https://github.com/pixelant/pxa/commit/e8acf62))
+
+***
+
 #### v0.3.0 `February 6, 2017`
 - **[TASK]** upgrade error handling, simplify install dep. script, change senderId installing process ([d48ded1](https://github.com/pixelant/pxa/commit/d48ded1))
 - **[FEATURE]** update mobileApp_template to v0.2.0 ([317582f](https://github.com/pixelant/pxa/commit/317582f))
