@@ -3,7 +3,6 @@
 'use strict';
 
 const _ = require('lodash');
-const shell = require('shelljs');
 const prompt = require('./lib/prompt');
 const chalk = require('chalk');
 const helpers = require('./lib/helpers');
@@ -14,7 +13,8 @@ const check = require('./lib/check');
 const parse = require('./lib/parse');
 const dep = require('./lib/dep');
 const argv = require('minimist')(process.argv.slice(2));
-const shellCommands = require('./lib/shellCommands');
+const cmd = require('./lib/cmd');
+const ionic = require('./lib/ionic');
 
 var cache = {};
 
@@ -29,10 +29,11 @@ function cloneMobileApp() {
     .then(prompt.appName)
     .then(prompt.dirName)
     .then(prompt.mobileAppQuestions)
-    .then(shellCommands.mkdir)
-    .then(() => git.clone(cache, cache.dirName))
-    .then(() => helpers.setWorkDir(cache, cache.dirName))
-    .then(git.reinit)
+    .then(cmd.mkdir)
+    .then(() => git.clone(cache, `git@github.com:pixelant/mobileApp_template.git`))
+    .then(() => cmd.setWorkDir(cache, cache.dirName))
+    .then(git.remove)
+    .then(git.init)
     .then(git.add)
     .then(() => git.commit(cache, `initial commit, based on mobileAppTemplate v${variables.mobileAppTemplate.v}`))
     .then(parse.mobileAppFiles)
@@ -41,19 +42,13 @@ function cloneMobileApp() {
     .then(prompt.mobImages)
     .then(prompt.installDep)
     .then(() => cache.installDep ? dep.npmInstall() : cache)
-    .then(() => cache.installDep ? dep.addIonicResources() : cache)
-    .then(() => cache.installDep ? dep.addIonicPlatforms() : cache)
-    .then(() => cache.installDep ? dep.ionicBuild() : cache)
-    // .then(dep.npmInstall)
-    // .then(dep.addIonicResources)
-    // .then(dep.addIonicPlatforms)
-    // .then(dep.ionicBuild)
+    .then(() => cache.installDep ? ionic.addResources() : cache)
+    .then(() => cache.installDep ? ionic.addPlatforms() : cache)
+    .then(() => cache.installDep ? ionic.build() : cache)
     .then(() => cache.installDep ? git.add() : cache)
     .then(() => cache.installDep ? git.commit(cache, 'add Ionic image resources') : cache)
 
     // .then((val) => { console.log(val); })
-    // .then(() => { console.log(helpers.pwd()); })
-    // .catch((err) => { helpers.error('', err);});
     .catch(helpers.error);
 }
 
@@ -62,22 +57,21 @@ function cloneMobileApp() {
 function ionicCloudSenderID() {
     return helpers.promiseChainStarter(cache)
     .then(check.isIonic)
-    .then(() => helpers.showMessage(cache, `To continue, please login to Pixelant Ionic account`))
+    .then(() => cmd.showMessage(cache, `To continue, please login to Pixelant Ionic account`))
     .then(prompt.login)
-    .then(shellCommands.ionicLogin)
-    .then(shellCommands.ionicInit)
-    .then(parse.appId)
-    .then(() => helpers.showMessage(cache, `Android FCM Project & Server Key \nhttp://docs.ionic.io/services/profiles/#android-fcm-project--server-key`))
+    .then(ionic.login)
+    .then(ionic.init)
+    .then(parse.mobileAppId)
+    .then(() => cmd.showMessage(cache, `Android FCM Project & Server Key \nhttp://docs.ionic.io/services/profiles/#android-fcm-project--server-key`))
     .then(prompt.senderId)
     .then(parse.appSenderId)
-    .then(dep.removePushPlugin)
-    .then(dep.installSenderId)
-    .then(dep.ionicBuild)
+    .then(ionic.removePushPlugin)
+    .then(ionic.installSenderId)
+    .then(ionic.build)
     .then(git.add)
     .then(() => git.commit(cache, 'setup Ionic Cloud and Google FCM Sender ID'))
 
     // .then((val) => { console.log(val); })
-    // .then(() => { console.log(helpers.pwd()); })
     .catch(helpers.error);
 }
 
@@ -91,7 +85,6 @@ function mobileAppSteps() {
         }
     })
     .catch(helpers.error);
-    // .catch((err) => { helpers.error('', err);});
 }
 
 // main start point
@@ -103,13 +96,12 @@ function run() {
             mobileAppSteps();
         } else if (cache.projectType === 'theme') {
             console.log(chalk.red('Not ready yet'));
-            shell.exit(1);
+            process.exit(1);
         } else if (cache.projectType === 'help') {
             help.allHelp();
         }
     })
     .catch(helpers.error);
-    // .catch((err) => { helpers.error('run', err);});
 }
 
 // parse arguments
@@ -132,7 +124,7 @@ if (_.size(argv) !== 1 || argv._.length) {
     } else if (argv.t || argv.theme) {
         cache.projectType = 'theme';
         console.log(chalk.red('Not ready yet'));
-        shell.exit(1);
+        process.exit(1);
 
     } else {
         help.allHelp();
@@ -142,6 +134,6 @@ if (_.size(argv) !== 1 || argv._.length) {
 }
 
 // TODO: add checker if generator uses the last version of project templates
-// TODO: show error message if something is wrong with dependencies installing
-// TODO: helpers.error???
 // TODO: add CI tests!!!
+// TODO: test internet connection
+// TODO: optimize, remove lodash
