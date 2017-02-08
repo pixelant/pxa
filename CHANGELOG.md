@@ -1,4 +1,9 @@
 
+#### v0.5.0 `February 8, 2017`
+- **[FEATURE]** update mobileApp_template to v0.3.0 ([364898e](https://github.com/pixelant/pxa/commit/364898e))
+
+***
+
 #### v0.4.0 `February 7, 2017`
 - **[TASK]** use child_process.exec instead of shelljs plugin, simplify modules structure ([552759b](https://github.com/pixelant/pxa/commit/552759b))
 - **[FIX]** node.child_process.exec maxBuffer issue ([cae2a33](https://github.com/pixelant/pxa/commit/cae2a33))
